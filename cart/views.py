@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 def cart_summory(request):
 
-    pass
+    return render(request, 'cart-summary.html')
 
 
 def cart_add(request):
