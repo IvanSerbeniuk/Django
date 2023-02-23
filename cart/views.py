@@ -6,6 +6,7 @@ from store.models import Product
 
 from django.shortcuts import get_object_or_404
 
+from django.http import JsonResponse
 
 def cart_summory(request):
 
@@ -16,7 +17,7 @@ def cart_add(request):
 
     cart = Cart(request)
 
-    if request.POST.get('action') == 'POST':
+    if request.POST.get('action') == 'post': #Ошибка капиталайз Пост
 
         product_id = int(request.POST.get('product_id'))
 
@@ -26,6 +27,9 @@ def cart_add(request):
 
         cart.add(product=product, product_qty=product_quantity)
         
+        response = JsonResponse({'The product is called: ': product.title, 'and the product quantity: ': product_quantity})
+
+        return response
 
 def cart_delete(request):
 
