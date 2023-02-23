@@ -1,5 +1,9 @@
 #all cart functionality in this file
 
+from decimal import Decimal
+
+from store.models import Product
+
 class Cart():
     #session handling part
 
@@ -36,3 +40,25 @@ class Cart():
     def __len__(self):
 
         return sum(item['qty'] for item in self.cart.values())
+    
+    def __iter__(self): #func help iterate through  all the products within our shopping cart. we want loop through our session data and use the product ID that we sent over via our AJAx request as a reference for filtering through our database
+        
+        all_product_id = self.cart.keys()#all id 
+
+        products = Product.objects.filter(id__in=all_product_id)  #we want tto check in our DB if all products metched srom shopping cart
+
+        cart = self.cart.copy() #copy instence of our sesssion data
+
+        for product in products:
+
+            cart[str(product.id)]['product'] = product
+
+        for item in cart.values():
+
+            item['price'] = Decimal(item['price'])
+
+            item['total'] = item['price'] * item['qty']
+
+            yield item
+            
+

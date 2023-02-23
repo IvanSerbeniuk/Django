@@ -8,14 +8,16 @@ from django.shortcuts import get_object_or_404
 
 from django.http import JsonResponse
 
-def cart_summory(request):
+def cart_summory(request): # obtain session data and pass it on through out cart-summory.html(page)
 
-    return render(request, 'cart-summary.html')
+    cart = Cart(request)
+    
+    return render(request, 'cart-summary.html', {'cart':cart})
 
 
 def cart_add(request):
 
-    cart = Cart(request)
+    cart = Cart(request) #we are making use of session class cart()
 
     if request.POST.get('action') == 'post': #Ошибка капиталайз Пост
 
