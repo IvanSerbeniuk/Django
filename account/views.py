@@ -5,4 +5,4 @@ from django.http import HttpResponse
 
 def register(requst):
 
-    return HttpResponse('Account url setup!')
+    return render(requst, 'account/registration/register.html')
