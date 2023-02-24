@@ -19,7 +19,7 @@ def cart_add(request):
 
     cart = Cart(request) #we are making use of session class cart()
 
-    if request.POST.get('action') == 'post': #Ошибка капиталайз Пост
+    if request.POST.get('action') == 'post': 
 
         product_id = int(request.POST.get('product_id'))
 
@@ -37,7 +37,25 @@ def cart_add(request):
 
 def cart_delete(request):
 
-    pass
+    cart = Cart(request) #we are making use of session class cart()
+
+    if request.POST.get('action') == 'post': 
+
+        product_id = int(request.POST.get('product_id'))
+
+        cart.delete(product=product_id) #info pr_id from Ajax (cart-sum.html)
+
+        cart_quantity = cart.__len__() #update qty val 
+
+        cart_total = cart.get_total() #update total price
+
+
+        
+        response = JsonResponse({'qty':cart_quantity, 'total':cart_total})
+
+        return response
+        
+        
 
 
 def cart_update(request):
