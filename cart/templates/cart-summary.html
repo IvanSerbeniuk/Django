@@ -60,7 +60,7 @@
 
                   &nbsp; 
                   
-                  <select id="">
+                  <select select="{{product.id}}">
                   
                     <option selected>
                   
@@ -80,7 +80,7 @@
                   
                   <br> <br>
 
-                  <button type="button" id="update-button"
+                  <button type="button" data-index="{{product.id}}"
                     class="btn btn-primary btn-sm update-button">
                     Update
                   
@@ -169,6 +169,55 @@
     });
 
   })
+
+  //Update button
+
+  $(document).on('click', '.update-button', function(e){ 
+
+    e.preventDefault();
+
+    var theproductid = $(this).data('index');// define how much qty
+
+    $.ajax({
+
+        type: 'POST',
+        url: '{% url "cart-update" %}', // ...cart/urls.py  path(... name='cart-update')
+        data: {
+            
+            product_id: $(this).data('index'), // checking which button we are selecting, It will correlate to the product 
+            product_quantity: $('#select' + theproductid + ' option:selected').text(),
+            csrfmiddlewaretoken: "{{csrf_token}}",
+            action: 'post'
+
+
+        },
+
+        success: function(json){
+
+            //console.log(json)
+
+            location.reload();
+            
+
+            document.getElementById('cart-qty').textContent = json.qty
+
+            document.getElementById('total').textContent = json.total //views.py in var restopnse (line54)
+
+          },
+        
+        error: function(xhr, errmsg, err){
+
+            
+        }
+
+    });
+
+  })
+
+
+
+
+
 
 </script>
 
