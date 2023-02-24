@@ -46,6 +46,18 @@ class Cart():
             
         self.session.modified = True
 
+
+    def update(self, product, qty):
+
+        product_id = str(product)
+        product_quantity = qty
+    
+        if product_id in self.cart: #if prod exist in our shopping cart
+
+            self.cart[product_id]['qty'] = product_quantity #select qty of the product change around qty that we sent to our view that we ggetting from post request
+
+        self.session.modified = True
+
     
 
     def __len__(self):
@@ -58,7 +70,9 @@ class Cart():
 
         products = Product.objects.filter(id__in=all_product_id)  #we want tto check in our DB if all products metched srom shopping cart
 
-        cart = self.cart.copy() #copy instence of our sesssion data
+        import copy
+        
+        cart = copy.deepcopy(self.cart) #copy instence of our sesssion data
 
         for product in products:
 

@@ -60,7 +60,7 @@
 
                   &nbsp; 
                   
-                  <select select="{{product.id}}">
+                  <select id="select{{product.id}}">
                   
                     <option selected>
                   
@@ -198,7 +198,6 @@
 
             location.reload();
             
-
             document.getElementById('cart-qty').textContent = json.qty
 
             document.getElementById('total').textContent = json.total //views.py in var restopnse (line54)
