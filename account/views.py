@@ -1,5 +1,15 @@
 from django.shortcuts import render, redirect
 from .forms import CreateUserForm 
+from django.contrib.sites.shortcuts import get_current_site #there domain name idk when we deploy...62
+from . token import user_tokenizer_generate
+
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes, force_str
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+
+
+
+
 
 def register(request):
 
@@ -11,9 +21,31 @@ def register(request):
 
         if form.is_valid():
 
-            form.save() #its like sending final post request
+            user = form.save() # we overwriting that obj
 
-            return redirect('store')
+            user.is_active = False #without verification we don't activate account
+
+            user.save()
+
+
+            # Email verification setup (template)
+            current_site = get_current_site(request)
+
+            subject = 'Account verification email'
+
+            message = render_to_string('account/registration/email-verification.html',{
+
+                'user':user,
+                'domain':current_site.domain,
+                'uid':urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': user_tokenizer_generate.make_token(user), 
+            })
+
+            user.email_user(subject=subject, message=message)
+
+
+        return redirect('email-verification-success')#we want redirect that user to url with name...
+
         
     context = {'form':form}
 
