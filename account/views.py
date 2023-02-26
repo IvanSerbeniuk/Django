@@ -13,7 +13,7 @@ def register(request):
 
             form.save() #its like sending final post request
 
-            return redirect('')
+            return redirect('store')
 
     context = {'form':form}
 
