@@ -8,7 +8,7 @@ urlpatterns = [
     path('register', views.register, name='register'), #account/register --> http resronse(views.py) - Account url setup!
 
     #Email verification URL's
-    path('email_verification/<str:uid64>/<str:token>/', views.email_verification, name='email-verification'),# <str:u... made our url dynamic
+    path('email_verification/<str:uidb64>/<str:token>/', views.email_verification, name='email-verification'),# <str:u... made our url dynamic
 
     path('email_verification-sent', views.email_verification_sent, name='email-verification-sent'),
 
