@@ -46,8 +46,7 @@ def register(request):
 
             user.email_user(subject=subject, message=message)
 
-
-        return redirect('email-verification-sent')#we want redirect that user to url with name...
+            return redirect('email-verification-sent')#we want redirect that user to url with name...
 
         
     context = {'form':form}
