@@ -1,7 +1,12 @@
 
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm 
 from django import forms
 from django.contrib.auth.models import User
+
+from django.forms.widgets import PasswordInput, TextInput
+
+
+# Registration form
 
 class CreateUserForm(UserCreationForm):
 
@@ -33,3 +38,9 @@ class CreateUserForm(UserCreationForm):
 
 
 
+# Login form
+
+class LoginForm(AuthenticationForm):
+
+    username = forms.CharField(widget=TextInput())
+    password = forms.CharField(widget=PasswordInput())
