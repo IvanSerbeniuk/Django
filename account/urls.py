@@ -1,6 +1,8 @@
 from django.urls import path
 
-from . import views
+from . import views 
+
+from django.contrib.auth import views as auth_views
 
 #all urls begin with /account (/eshop/urls.py (19line) path('account/'...)
 urlpatterns = [
@@ -28,6 +30,23 @@ urlpatterns = [
     path('profile-management', views.profile_management, name='profile-management'),
 
     path('delete-account', views.delete_account, name='delete-account'),
+
+
+    #password management URLs/views
+
+    # 1) Submit your email form
+    path('reset_password', auth_views.PasswordResetView.as_view(), name='reset_password'),
+
+    # 2) Success message stating that a password reset was sent
+    path('reset_password_sent', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+
+    # 3)
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+
+    # 4) Success message stating that our password was reset
+    path('reset_password_complete', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),
+    
+
 
     
 
