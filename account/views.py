@@ -130,9 +130,24 @@ def my_login(request):
 
 
 # logout
-def user_logout(request):
+def user_logout(request): # excepts session key to kill
 
-    auth.logout(request)
+    try:
+    
+        for key in list(request.session.keys()):
+
+            if key == 'session_key':
+
+                continue
+                
+            else:
+                del request.session[key]
+
+    except KeyError: 
+
+        pass
+
+
 
     return redirect('store')
 
