@@ -1,6 +1,6 @@
 from django import forms
 
-from . models import ShippingAddress
+from .models import ShippingAddress
 
 class ShippingForm(forms.ModelForm):
 
