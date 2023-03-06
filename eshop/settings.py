@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'account', # Django app
     'crispy_forms', # Crispy forms
     'mathfilters',
-    'payment',
+    'payment', # Django app
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
