@@ -224,7 +224,7 @@ def manage_shipping(request):
 
     if request.method == 'POST':
 
-        form = ShippingForm(request.POST, insctance=shipping)# if the user already have the info it's going simply update
+        form = ShippingForm(request.POST, instance=shipping)# if the user already have the info it's going simply update
 
         if form.is_valid(): # if valid we want insure that our foreign key(FK) is attached to our user model
 
